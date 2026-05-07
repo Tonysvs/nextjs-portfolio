@@ -1,117 +1,101 @@
 "use client";
 
+import Link from "next/link";
 import { motion } from "framer-motion";
+import { ArrowUpRight, Sparkles } from "lucide-react";
+import { projects } from "./data/projects";
 
-const projects = [
-  {
-    title: "ANFcorp Redesign",
-    subtitle: "Making upcoming shifts easier to find",
-    description:
-      "A redesign of the work schedule portal that prioritizes next shifts and availability updates instead of hiding them inside a dense HR dashboard.",
-  },
-  {
-    title: "Content Nutrition",
-    subtitle: "Helping users reflect on digital habits",
-    description:
-      "A design concept that helps people understand the quality of the content they consume, not just the amount of time they spend online.",
-  },
-  {
-    title: "Cookbook App",
-    subtitle: "Turning recipes into a mobile experience",
-    description:
-      "A SwiftUI app redesign of a recipe database with search, add, edit, and recipe detail flows.",
-  },
-];
-
-function RevealSection({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
+function Reveal({ children }: { children: React.ReactNode }) {
   return (
-    <motion.section
+    <motion.div
       initial={{ opacity: 0, y: 70 }}
       whileInView={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.7, ease: "easeOut" }}
-      viewport={{ once: true, amount: 0.35 }}
-      className="min-h-screen flex items-center px-8 md:px-20"
+      transition={{ duration: 0.75, ease: "easeOut" }}
+      viewport={{ once: true, amount: 0.25 }}
     >
       {children}
-    </motion.section>
+    </motion.div>
   );
 }
 
 export default function Home() {
   return (
-    <main className="bg-[#f5f5f7] text-[#1d1d1f]">
-      {/* HERO */}
-      <section className="min-h-screen flex flex-col justify-center px-8 md:px-20">
-        <p className="mb-4 text-sm uppercase tracking-[0.3em] text-neutral-500">
-          Anthony Vargas
-        </p>
+    <main className="min-h-screen bg-[#f5f5f7] text-[#1d1d1f]">
+      <nav className="fixed left-0 top-0 z-50 flex w-full justify-between bg-white/70 px-8 py-4 backdrop-blur-md">
+        <Link href="/" className="font-semibold">Anthony Vargas</Link>
+        <div className="flex gap-6 text-sm">
+          <Link href="/#projects">Projects</Link>
+          <Link href="/about">About</Link>
+        </div>
+      </nav>
 
-        <h1 className="max-w-5xl text-5xl md:text-7xl font-semibold leading-tight">
-          Interaction design for everyday systems that should feel easier.
-        </h1>
+      <section className="flex min-h-screen flex-col justify-center px-8 pt-20 md:px-20">
+        <motion.p
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          className="mb-5 flex items-center gap-2 text-sm uppercase tracking-[0.3em] text-neutral-500"
+        >
+          <Sparkles size={16} /> UX / Interaction Design
+        </motion.p>
 
-        <p className="mt-8 max-w-2xl text-xl text-neutral-600">
-          Inspired by Apple’s scroll-based reveal, this portfolio introduces
-          each project gradually so viewers can focus on one idea at a time.
-        </p>
+        <motion.h1
+          initial={{ opacity: 0, y: 40 }}
+          animate={{ opacity: 1, y: 0 }}
+          className="max-w-6xl text-5xl font-semibold leading-tight md:text-8xl"
+        >
+          Designing everyday systems so they feel easier, faster, and clearer.
+        </motion.h1>
+
+        <motion.p
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 0.4 }}
+          className="mt-8 max-w-2xl text-xl leading-8 text-neutral-600"
+        >
+          Scroll through selected projects. Each section reveals gradually,
+          inspired by Apple’s staged content reveal.
+        </motion.p>
       </section>
 
-      {/* PROJECTS */}
-      {projects.map((project, index) => (
-        <RevealSection key={project.title}>
-          <div className="grid gap-10 md:grid-cols-2 items-center w-full">
-            <div>
-              <p className="mb-4 text-sm uppercase tracking-[0.25em] text-neutral-500">
-                Project 0{index + 1}
-              </p>
-
-              <h2 className="text-4xl md:text-6xl font-semibold leading-tight">
-                {project.title}
-              </h2>
-
-              <p className="mt-5 text-2xl text-neutral-600">
-                {project.subtitle}
-              </p>
-
-              <p className="mt-6 max-w-xl text-lg leading-8 text-neutral-600">
-                {project.description}
-              </p>
-            </div>
-
-            <motion.div
-              initial={{ opacity: 0, scale: 0.92 }}
-              whileInView={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 0.8, delay: 0.15 }}
-              viewport={{ once: true }}
-              className="h-[420px] rounded-[2rem] bg-white shadow-xl flex items-center justify-center p-10"
-            >
-              <div className="h-full w-full rounded-[1.5rem] bg-gradient-to-br from-neutral-200 to-neutral-400 flex items-center justify-center text-center">
-                <p className="text-3xl font-semibold text-white">
-                  {project.title}
-                </p>
-              </div>
-            </motion.div>
-          </div>
-        </RevealSection>
-      ))}
-
-      {/* REFLECTION */}
-      <RevealSection>
-        <div className="max-w-4xl">
-          <p className="mb-4 text-sm uppercase tracking-[0.25em] text-neutral-500">
-            Interaction Recreated
-          </p>
-
-          <h2 className="text-4xl md:text-6xl font-semibold">
-            Scroll-triggered staged reveal
+      <section id="projects" className="px-8 py-24 md:px-20">
+        <Reveal>
+          <h2 className="mb-12 text-4xl font-semibold md:text-6xl">
+            Selected Projects
           </h2>
+        </Reveal>
 
+        <div className="grid gap-8 md:grid-cols-3">
+          {projects.map((project) => (
+            <Reveal key={project.slug}>
+              <Link
+                href={`/projects/${project.slug}`}
+                className="group block overflow-hidden rounded-[2rem] bg-white shadow-md transition duration-300 hover:-translate-y-3 hover:shadow-2xl"
+              >
+                <div
+                  className={`flex h-72 items-center justify-center bg-gradient-to-br ${project.color} text-8xl transition duration-500 group-hover:scale-105`}
+                >
+                  {project.image}
+                </div>
+
+                <div className="p-7">
+                  <p className="mb-3 text-sm uppercase tracking-[0.2em] text-neutral-500">
+                    {project.category}
+                  </p>
+
+                  <div className="flex items-center justify-between gap-4">
+                    <h3 className="text-2xl font-semibold">{project.title}</h3>
+                    <ArrowUpRight className="transition group-hover:rotate-45" />
+                  </div>
+
+                  <p className="mt-4 leading-7 text-neutral-600">
+                    {project.summary}
+                  </p>
+                </div>
+              </Link>
+            </Reveal>
+          ))}
         </div>
-      </RevealSection>
+      </section>
     </main>
   );
 }
