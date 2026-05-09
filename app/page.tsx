@@ -78,7 +78,7 @@ function PortfolioMenu() {
 
             <div className="grid gap-2 p-3">
               <Link
-                href="/#top"
+                href="/my-info"
                 onClick={closeMenu}
                 className="flex items-center justify-between rounded-2xl px-4 py-3 text-sm font-semibold transition hover:bg-neutral-100"
               >
@@ -227,10 +227,7 @@ export default function Home() {
                     <div className="absolute inset-0 bg-[linear-gradient(135deg,rgba(255,255,255,0.34)_0_1px,transparent_1px_18px)] opacity-40" />
 
                     <div className="relative flex h-full flex-col justify-between p-7 text-white">
-                      <div className="flex items-start justify-between gap-4">
-                        <span className="rounded-full bg-white/20 px-4 py-2 text-xs font-semibold uppercase tracking-[0.18em] backdrop-blur-md">
-                          0{index + 1}
-                        </span>
+                      <div className="flex items-start justify-end gap-4">
                         <span className="rounded-full bg-black/15 px-4 py-2 text-xs font-medium backdrop-blur-md">
                           {project.category}
                         </span>
