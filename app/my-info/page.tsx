@@ -27,8 +27,8 @@ const contactItems = [
   },
   {
     label: "Phone",
-    value: "(000) 000-0000",
-    href: "tel:+10000000000",
+    value: "(619) 361-0210",
+    href: "tel:+16193610210",
     icon: Phone,
   },
   {
@@ -39,8 +39,8 @@ const contactItems = [
   },
   {
     label: "GitHub",
-    value: "github.com/your-profile",
-    href: "https://github.com/your-profile",
+    value: "github.com/tonysvs",
+    href: "https://github.com/tonysvs",
     icon: GitBranch,
   },
   {
